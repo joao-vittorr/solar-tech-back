@@ -8,9 +8,7 @@ use Tests\DuskTestCase;
 
 class BudgetTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     */
+    
     public function testBudget(): void
     {
         $this->browse(function (Browser $browser) {
