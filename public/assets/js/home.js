@@ -1,4 +1,4 @@
-const URL_calculadora = 'http://localhost:8000';
+const URL_calculadora = 'http://localhost:5600';
 const URL_MODULO = 'http://localhost:5500/api'
 
 $('#budget-form').submit(function(event) {
@@ -97,14 +97,20 @@ function buscarFatura(id_compra){
         type: 'GET',
         contentType: 'application/json',
         success: function(response) {
-            fatura = response['venda']['fatura'];
+            venda = response['venda']
+            fatura = venda['fatura'];
 
             $('#comprasModal').modal('hide');
             $('#faturaModal').modal('show');
-            
-            $('#id').text(fatura['id']);
-            $('#StatusPagamento').text(fatura['pago'] == 0 ? 'pagamento pendente' : 'pago');
-            $('#Valor').text('R$ ' + fatura['valor']);
+            content = `
+            <tr>
+                <th id='id'>${fatura['id']}</th>
+                <th id='StatusPagamento'>${fatura['pago'] == 0 ? 'pagamento pendente' : 'pago'}</th>
+                <th id='Valor'>R$ ${fatura['valor']}</th>
+                <th><button class="btn btn-success" onclick="gerarPdf(${venda['id']})">Gerar PDF</button></th>
+            </tr>
+            `
+           $('#tableFaturaBody').html(content);
 
         },
         error: function(error) {
@@ -113,3 +119,55 @@ function buscarFatura(id_compra){
     });
   
 }
+
+function deletarCompra(id_compra){
+    $.ajax({
+        url: URL_MODULO + '/compras-cliente/' + id_compra, 
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            location.reload();
+        },
+        error: function(error) {
+            location.reload();
+        }
+    });
+}
+
+function gerarPdf(id){
+    $.ajax({
+        url: URL_MODULO + '/pdf/' + id,
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        xhrFields: {
+            responseType: 'blob' // Indica que a resposta é um Blob (Binary Large Object)
+        },
+        success: function(response) {
+            // Cria um objeto Blob com a resposta
+            var blob = new Blob([response], { type: 'application/pdf' });
+    
+            // Cria um link para download
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'documento.pdf';
+    
+            // Adiciona o link ao documento e simula o clique para iniciar o download
+            document.body.appendChild(link);
+            link.click();
+    
+            // Remove o link do documento
+            document.body.removeChild(link);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    
+    
+}
+
+

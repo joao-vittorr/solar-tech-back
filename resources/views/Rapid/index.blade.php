@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>SolarTech</title>
   <meta content="" name="description">
@@ -81,7 +82,18 @@
   <!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
+  
     <section id="hero" class="clearfix">
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
       <div class="container d-flex h-100">
         <div class="row justify-content-center align-self-center" data-aos="fade-up">
           <div class="col-lg-6 intro-info order-lg-first order-last" data-aos="zoom-in" data-aos-delay="100">
@@ -837,17 +849,18 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  @if(isset($vendas))
-                                    @foreach($vendas as $item)
-                                    <th>{{$item['id']}}</th>
-                                    <th>{{$item['nomePacote']}}</th>
-                                    <th>{{$item['quantidadePlacas']}}</th>
-                                    <th>{{$item['valorFinal']}}</th>
-                                    <th><button class="btn btn-success" onclick="buscarFatura({{$item['id']}})">Gerar Fatura</button></th>
-                                    @endforeach
-                                  @endif
-                                </tr>
+                                @if(isset($vendas))
+                                  @foreach($vendas as $item)
+                                    <tr>
+                                      <th>{{$item['id']}}</th>
+                                      <th>{{$item['nomePacote']}}</th>
+                                      <th>{{$item['quantidadePlacas']}}</th>
+                                      <th>{{$item['valorFinal']}}</th>
+                                      <th><button class="btn btn-success" onclick="buscarFatura({{$item['id']}})">Gerar Fatura</button></th>
+                                      <th><button class="btn btn-danger" onclick="deletarCompra({{$item['id']}})">Deletar Compra</button></th>
+                                    </tr>
+                                  @endforeach
+                                @endif
                               </tbody>
                             </table>
                           </section>
@@ -958,7 +971,6 @@
                       <section id="economy" >
                         <h1>Plano Regular</h1>
                         <h2>Confirme Seus Dados e Finalize Sua Compra</h2>
-                  
                         <form id="regularModalForm" method="post" action="{{ route('finalizarCompra') }}">
                           @csrf
                           <label for="planoEscolhido"> Plano Escolhido: </label>
@@ -1280,17 +1292,13 @@
                                 <th>id</th>
                                 <th>Status Pagamento</th>
                                 <th>Valor</th>
+                                <th>Opção</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                  <th id='id'></th>
-                                  <th id='StatusPagamento'></th>
-                                  <th id='Valor'></th>
-                              </tr>
+                            <tbody id='tableFaturaBody'>
+                              
                             </tbody>
                           </table>
-                          <button class="btn btn-primary">Pagar</button>
                         </section>
                       </div>
                     </div>
@@ -1300,33 +1308,35 @@
             <!-- tabela de minhas compras -->
 
             <!-- perfil do usuario -->
-            @if(Auth::check())
-              <div class="modal fade" id="PerfilModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <!-- Conteúdo do modal vai aqui -->
-                          <section id="economy" >
-                            <h1>Olá, {{ auth()->user()->name }} !</h1>
-                            <form id="cepModalForm" method="post" action="{{ route('saveCep') }}">
-                              @csrf
-                                <label for="cepUsuario"> Cep: </label>
-                                <input type="text" id="cepUsuario" name="cepUsuario" required>
-                                <br>
-                                <label for="cepUsuario"> Cpf: </label>
-                                <input type="text" id="cpfUsuario" name="cpfUsuario" required>
-                                <button type="submit">Confirmar</button>
-                            </form>
-                          </section>
+              @if(Auth::check())
+                <div class="modal fade" id="PerfilModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- Conteúdo do modal vai aqui -->
+                            <section id="economy" >
+                              <h1>Olá, {{ auth()->user()->name }} !</h1>
+                              <form id="cepModalForm" method="post" action="{{ route('saveCep') }}">
+                                @csrf
+                                  <label for="cepUsuario"> Cep: </label>
+                                  <input type="text" id="cepUsuario" name="cepUsuario" required>
+                                  <br>
+                                  <label for="cepUsuario"> Cpf: </label>
+                                  <input type="text" id="cpfUsuario" name="cpfUsuario" required>
+                                  <button type="submit">Confirmar</button>
+                              </form>
+                            </section>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-            @endif
+              @endif
             <!-- perfil do usuario -->
+
+            
         <!------------------- END MODALS ------------------->
 
           </div>
