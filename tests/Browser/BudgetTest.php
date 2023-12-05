@@ -12,7 +12,7 @@ class BudgetTest extends DuskTestCase
     public function testBudget(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->visit('http://localhost:8080/')
                 ->maximize()
                 ->pause(1000)
                 ->scrollIntoView('@BudgetSection')
@@ -31,7 +31,7 @@ class BudgetTest extends DuskTestCase
     public function testBudgetError(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->visit('http://localhost:8080/')
                 ->maximize()
                 ->pause(1000)
                 ->scrollIntoView('@BudgetSection')

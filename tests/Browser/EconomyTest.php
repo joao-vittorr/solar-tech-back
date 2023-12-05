@@ -14,7 +14,7 @@ class EconomyTest extends DuskTestCase
     public function testEconomy(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->visit('http://localhost:8080/')
                 ->maximize()
                 ->pause(1000)
                 ->scrollIntoView('@EconomySection')

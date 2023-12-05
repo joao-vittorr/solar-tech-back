@@ -693,7 +693,7 @@
             <h3>Preços</h3>
             <p>aqui fica os precinhos</p>
           </header>
-          <div class="row flex-items-xs-middle flex-items-xs-center">
+          <div class="row flex-items-xs-middle flex-items-xs-center" dusk='pricingSection'>
             
             <!-- Basic Plan  -->
               <div class="col-xs-12 col-lg-3" data-aos="fade-up" data-aos-delay="100">
@@ -720,7 +720,7 @@
                     @if(auth()->check() && auth()->user()->cep == null)
                     <a data-bs-toggle="modal" data-bs-target="#cepModal" class="btn">Escolher Plano</a>
                     @else
-                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" class="btn">Escolher Plano</a>
+                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" class="btn" dusk='escolherPlanoBasico'>Escolher Plano</a>
                     @endif
                   </div>
                 </div>
@@ -949,7 +949,7 @@
 
                             <br>
 
-                            <button type="submit">Finalizar Compra</button>
+                            <button type="submit" dusk='finalizarCompraBasico'>Finalizar Compra</button>
                         </form>
                       </section>
                     </div>
