@@ -112,8 +112,6 @@ class PacotesController extends Controller
             'valor' => $dadosDoPacote['valorFinal'],
         ];
         
-        // dd($sendEmail);
-        // dd($sendToFinancial);
         $response = Http::post(env('URL_LADO_FUNCIONARIO').'/api/receber-dados', $sendToFinancial);
         
         if ($response->json(['message']) == 'True') {

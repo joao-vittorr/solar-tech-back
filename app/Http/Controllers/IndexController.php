@@ -18,7 +18,7 @@ class IndexController extends Controller
             $response = Http::get(env('URL_LADO_FUNCIONARIO').'/api/compras-cliente/'.$user->id);
 
             $vendas = $response->json([0]);
-            //dd($vendas);
+           
             return view("/Rapid/index",compact("pacotes","user","vendas"));
         }
         return view("/Rapid/index",compact("pacotes"));
@@ -43,40 +43,14 @@ class IndexController extends Controller
                 $user->cidade = $data['localidade'];
                 $user->estado = $data['uf'];
 
-                // Salva as alterações no banco de dados
+          
                 $user->save();
             }
         }
 
-        return redirect()->back()->with('error', 'Falha ao obter informações do CEP.');
+        return redirect()->back()->with('success', 'Dados atualizados com sucesso!');
     }
 
     
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
-    }
+   
 }

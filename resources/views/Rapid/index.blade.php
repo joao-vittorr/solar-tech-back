@@ -66,11 +66,11 @@
                             </ul>
                         </li>
                     @else
-                        <li><a class="nav-link scrollto " href="{{ route('login.google') }}">Login</a></li>
+                        <li><a class="nav-link scrollto " id="login" href="{{ route('login.google') }}">Login</a></li>
                     @endif
 
                     @if (auth()->check() && auth()->user()->cep == null)
-                        <li><a data-bs-toggle="modal" data-bs-target="#cepModal" class="btn">Atualizar CPF</a></li>
+                        <li id="atualizarDados"><a data-bs-toggle="modal" data-bs-target="#cepModal" class="btn">Atualizar CPF</a></li>
                     @endif
                     @if (auth()->check())
                         <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a></li>
@@ -88,12 +88,12 @@
 
     <section id="hero" class="clearfix">
         @if (session('error'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" id="error">
                 {{ session('error') }}
             </div>
         @endif
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success" id="success">
                 {{ session('success') }}
             </div>
         @endif
@@ -227,7 +227,7 @@
 
                     <!-- Basic Plan  -->
                     <div class="col-xs-12 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card">
+                        <div class="card" id="escolherPlanoBasico">
                             <div class="card-header">
                                 <h3><span class="currency">R$</span>5.000<span class="period"></span></h3>
                             </div>
@@ -249,10 +249,10 @@
                       <li class="list-group-item">Instalação Profissional</li> -->
                                 </ul>
                                 @if (auth()->check() && auth()->user()->cep == null)
-                                    <a data-bs-toggle="modal" data-bs-target="#cepModal" class="btn">Escolher
+                                    <a data-bs-toggle="modal" data-bs-target="#cepModal" id="CompraBasico" class="btn">Escolher
                                         Plano</a>
                                 @else
-                                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" class="btn"
+                                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" id="CompraBasico" class="btn"
                                         dusk='escolherPlanoBasico'>Escolher Plano</a>
                                 @endif
                             </div>
@@ -357,7 +357,7 @@
                                                 <br>
                                                 <label for="cepUsuario"> Cpf: </label>
                                                 <input type="text" id="cpfUsuario" name="cpfUsuario" required>
-                                                <button type="submit">Confirmar</button>
+                                                <button type="submit" id="confirmaDados">Confirmar</button>
                                             </form>
                                         </section>
                                     </div>
@@ -369,9 +369,9 @@
 
                     <!-- tabela de minhas compras -->
                     @if (auth()->check())
-                        <div class="modal fade" id="comprasModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade bd-example-modal-lg" id="comprasModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -384,11 +384,12 @@
                                             <table id="tableMinhasCompras">
                                                 <thead>
                                                     <tr>
-                                                        <th>id</th>
+                                                        <th>ID</th>
                                                         <th>Pacote Escolhido</th>
                                                         <th>Quatidade de Placas</th>
                                                         <th>Valor</th>
-                                                        <th>opçoes</th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -398,7 +399,7 @@
                                                                 <th>{{ $item['id'] }}</th>
                                                                 <th>{{ $item['nomePacote'] }}</th>
                                                                 <th>{{ $item['quantidadePlacas'] }}</th>
-                                                                <th>{{ $item['valorFinal'] }}</th>
+                                                                <th>R$ {{ number_format($item['valorFinal'], 2, ',', '.') }}</th>
                                                                 <th><button class="btn btn-success"
                                                                         onclick="buscarFatura({{ $item['id'] }})">Gerar
                                                                         Fatura</button></th>
@@ -424,7 +425,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -502,7 +503,7 @@
 
                                             <br>
 
-                                            <label for="estado"> estado </label>
+                                            <label for="estado" > estado </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
                                                 <input type="text" id="estado" name="estado"
                                                     value="{{ Auth::user()->estado }}" required>
@@ -513,7 +514,7 @@
 
                                             <br>
 
-                                            <button type="submit" dusk='finalizarCompraBasico'>Finalizar
+                                            <button type="submit" dusk='finalizarCompraBasico' id="finalizarCompraBasico">Finalizar
                                                 Compra</button>
                                         </form>
                                     </section>
@@ -529,7 +530,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -634,7 +635,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -740,7 +741,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -793,7 +794,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
