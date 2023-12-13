@@ -620,7 +620,7 @@
 
 
                                             <button type="submit" data-bs-dismiss="modal"
-                                                aria-label="Close">Comprar</button>
+                                                aria-label="Close">Finalizar Compra</button>
                                         </form>
                                     </section>
                                 </div>
@@ -726,7 +726,7 @@
 
 
                                             <button type="submit" data-bs-dismiss="modal"
-                                                aria-label="Close">Comprar</button>
+                                                aria-label="Close">Finalizar Compra</button>
                                         </form>
                                     </section>
                                 </div>
@@ -779,7 +779,7 @@
 
                                             <br>
 
-                                            <button type="submit">Montar Pacote Custom</button>
+                                            <button type="submit">Montar Pacote</button>
                                         </form>
                                     </section>
                                 </div>
@@ -890,7 +890,7 @@
 
                                             <br>
 
-                                            <button type="submit">Enviar</button>
+                                            <button type="submit">Finalizar Compra</button>
                                         </form>
                                     </section>
                                 </div>

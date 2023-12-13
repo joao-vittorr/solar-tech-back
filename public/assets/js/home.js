@@ -120,21 +120,28 @@ function buscarFatura(id_compra){
   
 }
 
-function deletarCompra(id_compra){
+function deletarCompra(id_compra) {
     $.ajax({
-        url: URL_MODULO + '/compras-cliente/' + id_compra, 
+        url: URL_MODULO + '/compras-cliente/' + id_compra,
         type: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function(response) {
+        success: function (response) {
+            if (response && response.success) {
+                alert(response.message);
+            } else {
+                alert(response.message);
+            }
             location.reload();
         },
-        error: function(error) {
+        error: function (error) {
+            alert('Erro ao deletar a compra. Tente novamente.');
             location.reload();
         }
     });
 }
+
 
 function gerarPdf(id){
     $.ajax({
