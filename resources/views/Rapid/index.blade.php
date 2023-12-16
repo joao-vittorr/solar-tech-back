@@ -56,24 +56,27 @@
                                     class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a onclick='$("#PerfilModal").modal("show")'>Atualizar Dados</a></li>
-                                <li><a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
-                                        Out</a></li>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
                             </ul>
                         </li>
                     @else
-                        <li><a class="nav-link scrollto " id="login" href="{{ route('login.google') }}">Login</a></li>
+                        <li><a class="nav-link scrollto " id="login" href="{{ route('login.google') }}">Login</a>
+                        </li>
                     @endif
 
                     @if (auth()->check() && auth()->user()->cep == null)
-                        <li id="atualizarDados"><a data-bs-toggle="modal" data-bs-target="#cepModal" class="btn">Atualizar CPF</a></li>
+                        <li id="atualizarDados"><a data-bs-toggle="modal" data-bs-target="#cepModal"
+                                class="btn">Atualizar CPF</a></li>
                     @endif
                     @if (auth()->check())
-                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a></li>
+                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a> 
+                        </li>
+                 
+                   <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout<i class="bi bi-box-arrow-right"></i></a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                     @endif
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -238,22 +241,14 @@
                                 <ul class="list-group">
                                     <li class="list-group-item" id="cudeburra">3 Painéis Solares (Módulos
                                         Fotovoltaicos)</li>
-                                    <!-- <li class="list-group-item">3 Painéis Solares (Módulos Fotovoltaicos)</li>
-                      <li class="list-group-item">Inversor Solar de Qualidade</li>
-                      <li class="list-group-item">Estrutura de Montagem para Telhado</li>
-                      <li class="list-group-item">Caixa de Conexão DC</li>
-                      <li class="list-group-item">Medidor de Energia Bidirecional</li>
-                      <li class="list-group-item">Disjuntores e Fusíveis Adequados</li>
-                      <li class="list-group-item">Cabos e Condutores</li>
-                      <li class="list-group-item">Monitoramento Básico do Sistema</li>
-                      <li class="list-group-item">Instalação Profissional</li> -->
                                 </ul>
                                 @if (auth()->check() && auth()->user()->cep == null)
-                                    <a data-bs-toggle="modal" data-bs-target="#cepModal" id="CompraBasico" class="btn">Escolher
+                                    <a data-bs-toggle="modal" data-bs-target="#cepModal" id="CompraBasico"
+                                        class="btn">Escolher
                                         Plano</a>
                                 @else
-                                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" id="CompraBasico" class="btn"
-                                        dusk='escolherPlanoBasico'>Escolher Plano</a>
+                                    <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" id="CompraBasico"
+                                        class="btn" dusk='escolherPlanoBasico'>Escolher Plano</a>
                                 @endif
                             </div>
                         </div>
@@ -369,8 +364,8 @@
 
                     <!-- tabela de minhas compras -->
                     @if (auth()->check())
-                        <div class="modal fade bd-example-modal-lg" id="comprasModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade bd-example-modal-lg" id="comprasModal" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -399,7 +394,9 @@
                                                                 <th>{{ $item['id'] }}</th>
                                                                 <th>{{ $item['nomePacote'] }}</th>
                                                                 <th>{{ $item['quantidadePlacas'] }}</th>
-                                                                <th>R$ {{ number_format($item['valorFinal'], 2, ',', '.') }}</th>
+                                                                <th>R$
+                                                                    {{ number_format($item['valorFinal'], 2, ',', '.') }}
+                                                                </th>
                                                                 <th><button class="btn btn-success"
                                                                         onclick="buscarFatura({{ $item['id'] }})">Gerar
                                                                         Fatura</button></th>
@@ -459,23 +456,23 @@
 
                                             <br>
 
-                                            <label for="numero_casa"> numero da casa </label>
-                                            @if (Auth::check() && Auth::user()->name !== null)
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="{{ Auth::user()->numero_casa }}" required>
-                                            @else
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="" required>
-                                            @endif
-
-                                            <br>
-
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
                                                 <input type="text" id="logradouro" name="logradouro"
                                                     value="{{ Auth::user()->logradouro }}" required>
                                             @else
                                                 <input type="text" id="logradouro" name="logradouro"
+                                                    value="" required>
+                                            @endif
+
+                                            <br>
+
+                                            <label for="numero_casa"> numero da casa </label>
+                                            @if (Auth::check() && Auth::user()->name !== null)
+                                                <input type="number" id="numero_casa" name="numero_casa"
+                                                    value="{{ Auth::user()->numero_casa }}" required>
+                                            @else
+                                                <input type="number" id="numero_casa" name="numero_casa"
                                                     value="" required>
                                             @endif
 
@@ -503,7 +500,7 @@
 
                                             <br>
 
-                                            <label for="estado" > estado </label>
+                                            <label for="estado"> estado </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
                                                 <input type="text" id="estado" name="estado"
                                                     value="{{ Auth::user()->estado }}" required>
@@ -514,7 +511,8 @@
 
                                             <br>
 
-                                            <button type="submit" dusk='finalizarCompraBasico' id="finalizarCompraBasico">Finalizar
+                                            <button type="submit" dusk='finalizarCompraBasico'
+                                                id="finalizarCompraBasico">Finalizar
                                                 Compra</button>
                                         </form>
                                     </section>
@@ -537,7 +535,7 @@
                                 <div class="modal-body">
                                     <!-- Conteúdo do modal vai aqui -->
                                     <section id="economy">
-                                        <h1>Plano Regular</h1>
+                                        <h1>Plano Médio</h1>
                                         <h2>Confirme Seus Dados e Finalize Sua Compra</h2>
                                         <form id="regularModalForm" method="post"
                                             action="{{ route('finalizarCompra') }}">
@@ -563,23 +561,24 @@
 
                                             <br>
 
-                                            <label for="numero_casa"> numero da casa </label>
-                                            @if (Auth::check() && Auth::user()->name !== null)
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="{{ Auth::user()->numero_casa }}" required>
-                                            @else
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="" required>
-                                            @endif
-
-                                            <br>
-
+                                            
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
                                                 <input type="text" id="logradouro" name="logradouro"
                                                     value="{{ Auth::user()->logradouro }}" required>
                                             @else
                                                 <input type="text" id="logradouro" name="logradouro"
+                                                    value="" required>
+                                            @endif
+
+                                            <br>
+
+                                            <label for="numero_casa"> numero da casa </label>
+                                            @if (Auth::check() && Auth::user()->name !== null)
+                                                <input type="number" id="numero_casa" name="numero_casa"
+                                                    value="{{ Auth::user()->numero_casa }}" required>
+                                            @else
+                                                <input type="number" id="numero_casa" name="numero_casa"
                                                     value="" required>
                                             @endif
 
@@ -669,16 +668,7 @@
 
                                             <br>
 
-                                            <label for="numero_casa"> numero da casa </label>
-                                            @if (Auth::check() && Auth::user()->name !== null)
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="{{ Auth::user()->numero_casa }}" required>
-                                            @else
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="" required>
-                                            @endif
-
-                                            <br>
+                                            
 
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
@@ -686,6 +676,18 @@
                                                     value="{{ Auth::user()->logradouro }}" required>
                                             @else
                                                 <input type="text" id="logradouro" name="logradouro"
+                                                    value="" required>
+                                            @endif
+
+                                            
+                                            <br>
+
+                                            <label for="numero_casa"> numero da casa </label>
+                                            @if (Auth::check() && Auth::user()->name !== null)
+                                                <input type="number" id="numero_casa" name="numero_casa"
+                                                    value="{{ Auth::user()->numero_casa }}" required>
+                                            @else
+                                                <input type="number" id="numero_casa" name="numero_casa"
                                                     value="" required>
                                             @endif
 
@@ -761,7 +763,8 @@
                                             </label>
                                             <select id="pacotesCustom" name="pacotesCustom">
                                                 @foreach ($pacotes as $pacote)
-                                                    <option value="{{ $pacote->quantidadePlacas }}">{{ $pacote->nomePacote }}
+                                                    <option value="{{ $pacote->quantidadePlacas }}">
+                                                        {{ $pacote->nomePacote }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -835,16 +838,7 @@
 
                                             <br>
 
-                                            <label for="numero_casa"> numero da casa </label>
-                                            @if (Auth::check() && Auth::user()->name !== null)
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="{{ Auth::user()->numero_casa }}" required>
-                                            @else
-                                                <input type="number" id="numero_casa" name="numero_casa"
-                                                    value="" required>
-                                            @endif
-
-                                            <br>
+                                            
 
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
@@ -852,6 +846,17 @@
                                                     value="{{ Auth::user()->logradouro }}" required>
                                             @else
                                                 <input type="text" id="logradouro" name="logradouro"
+                                                    value="" required>
+                                            @endif
+
+                                            <br>
+
+                                            <label for="numero_casa"> numero da casa </label>
+                                            @if (Auth::check() && Auth::user()->name !== null)
+                                                <input type="number" id="numero_casa" name="numero_casa"
+                                                    value="{{ Auth::user()->numero_casa }}" required>
+                                            @else
+                                                <input type="number" id="numero_casa" name="numero_casa"
                                                     value="" required>
                                             @endif
 
@@ -947,6 +952,7 @@
                                     <div class="modal-body">
                                         <!-- Conteúdo do modal vai aqui -->
                                         <section id="economy">
+                                            <h1>Atualizar Dados</h1>
                                             <h1>Olá, {{ auth()->user()->name }} !</h1>
                                             <form id="cepModalForm" method="post" action="{{ route('saveCep') }}">
                                                 @csrf
@@ -996,7 +1002,7 @@
                 <input type="number" id="quantidadeAdicionalPlaca" name="quantidadeAdicionalPlaca" required>
                 <br>
                 <button type="submit" dusk="enviarBudget">Enviar</button>
-                <br/>
+                <br />
                 <span type="number" id="resultado" dusk="resultado" name="resultado" readonly></span>
             </form>
         </section>
