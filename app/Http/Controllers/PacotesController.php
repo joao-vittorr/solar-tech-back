@@ -87,8 +87,8 @@ class PacotesController extends Controller
         if(isset($data['nome']) == 'personalizado'){
             $pacote = [];
             $pacote['nomePacote'] =  $data['nome'];
-            $pacote['quantidadePlacas'] =  $data['quantidadeEscolhida'];
-            $pacote['valorFinal'] = $data['pacoteEscohido'] + ($data['quantidadeEscolhida'] * 1000);
+            $pacote['quantidadePlacas'] = $data['pacoteEscohido'] + $data['quantidadeEscolhida'];
+            $pacote['valorFinal'] = ($data['pacoteEscohido'] * 1100) + (($data['quantidadeEscolhida'] * 1100));
             $dadosDoPacote = $pacote;
         }else{
 

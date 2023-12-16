@@ -229,7 +229,7 @@
                     <div class="col-xs-12 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                         <div class="card" id="escolherPlanoBasico">
                             <div class="card-header">
-                                <h3><span class="currency">R$</span>5.000<span class="period"></span></h3>
+                                <h3><span class="currency">R$</span>3.300<span class="period"></span></h3>
                             </div>
                             <div class="card-block">
                                 <h4 class="card-title">
@@ -264,7 +264,7 @@
                     <div class="col-xs-12 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                         <div class="card">
                             <div class="card-header">
-                                <h3><span class="currency">R$</span>8.500<span class="period"></span></h3>
+                                <h3><span class="currency">R$</span>6.600<span class="period"></span></h3>
                             </div>
                             <div class="card-block">
                                 <h4 class="card-title">
@@ -289,7 +289,7 @@
                     <div class="col-xs-12 col-lg-3" data-aos="fade-up" data-aos-delay="300">
                         <div class="card">
                             <div class="card-header">
-                                <h3><span class="currency">R$</span>12.000<span class="period"></span></h3>
+                                <h3><span class="currency">R$</span>9.900<span class="period"></span></h3>
                             </div>
                             <div class="card-block">
                                 <h4 class="card-title">
@@ -761,7 +761,7 @@
                                             </label>
                                             <select id="pacotesCustom" name="pacotesCustom">
                                                 @foreach ($pacotes as $pacote)
-                                                    <option value="{{ $pacote->valor }}">{{ $pacote->nomePacote }}
+                                                    <option value="{{ $pacote->quantidadePlacas }}">{{ $pacote->nomePacote }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -995,23 +995,23 @@
                 </label>
                 <input type="number" id="quantidadeAdicionalPlaca" name="quantidadeAdicionalPlaca" required>
                 <br>
-                <label for="resultado">Resultado:</label>
-                <input type="number" id="resultado" dusk="resultado" name="resultado" readonly>
                 <button type="submit" dusk="enviarBudget">Enviar</button>
+                <br/>
+                <span type="number" id="resultado" dusk="resultado" name="resultado" readonly></span>
             </form>
         </section>
         <!-- ======= End Budget Section ======= -->
 
         <!-- ======= economy Section ======= -->
         <section id="economy" dusk="EconomySection">
-            <h1>Economia</h1>
-            <h2>Calcule aqui a economia que voce tera ao comprar nosso produto</h2>
+            <h1>Economia / Simulação</h1>
+            <h2>Calcule aqui o melhor plano e a quantidade de placas adicionais para atender a sua demanda</h2>
 
             <form id="economy-form">
                 <label for="quantidadePlacas">Escolha o pacote:</label>
                 <select id="quantidadePlacas" name="quantidadePlacas">
                     @foreach ($pacotes as $pacote)
-                        <option value="{{ $pacote->valor }}">{{ $pacote->nomePacote }}</option>
+                        <option value="{{ $pacote->quantidadePlacas }}">{{ $pacote->nomePacote }}</option>
                     @endforeach
                 </select>
 
@@ -1032,9 +1032,9 @@
                 <input type="number" id="consumoMedio" name="consumoMedio" required>
 
                 <br>
-                <span id="economyOutput"></span>
-                <br>
                 <button type="submit" dusk="enviarEconomy">Enviar</button>
+                <br>
+                <span id="economyOutput"></span>
             </form>
         </section>
         <!-- ======= End economy Section ======= -->

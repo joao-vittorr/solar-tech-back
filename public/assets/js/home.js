@@ -32,8 +32,9 @@ function sendBudget(){//envia o form pro controlador da calculadora
         contentType: 'application/json',
         data: JSON.stringify(jsonContent),
         success: function(response) {
-            console.log(response);
-            $('#resultado').val(response['valorBudget']).prop('disabled', true);
+            $('#resultado').text("O valor final ficará de " + response['valorBudget'].toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
+            .removeClass()
+            .addClass('bg-success p-4 text-white');
         },
         error: function(error) {
             console.error('Erro na requisição:', error);
@@ -56,13 +57,18 @@ function sendEconomy(){//envia o form pro controlador da calculadora
         contentType: 'application/json',
         data: JSON.stringify(jsonContent),
         success: function(response) {
-            console.log(response.economiaTotal);
-            if(response.economiaTotal < 0){
-                $('#economyOutput').text("produçao nao sera suficiente pra suprir sua demanda");
-            }else if(response.economiaTotal == 0){
-                $('#economyOutput').text("produçao igual a demanda seus custos serao zerados");
-            }else{
-                $('#economyOutput').text("produçao gera mais que a demanda o saldo sera positivo");
+            if (response.economiaTotal < 0) {
+                $('#economyOutput').text("A produção não será suficiente para atender à sua demanda. Devido está gerando " + response.economiaTotal + " Kwh/Mês que o valor necessário!")
+                .removeClass()
+                .addClass('bg-danger p-4 text-white');
+            } else if (response.economiaTotal === 0) {
+                $('#economyOutput').text("A produção é igual à demanda, seus custos serão zerados.")
+                .removeClass()
+                .addClass('bg-info p-4 text-white');
+            } else {
+                $('#economyOutput').text("A produção gera mais do que a demanda, o saldo será positivo em: " + response.economiaTotal + " Kwh/Mês!")
+                .removeClass()
+                .addClass('bg-success p-4 text-white');
             }
         },
         error: function(error) {
@@ -86,9 +92,9 @@ function sendCustomPlanModalForm(){//pegas as informaçao do primeiro form e jog
 
 }
 
-function finalizarCompra(){
+// function finalizarCompra(){
 
-}
+// }
 
 function buscarFatura(id_compra){
 
