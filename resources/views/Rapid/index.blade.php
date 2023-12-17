@@ -68,15 +68,17 @@
                                 class="btn">Atualizar CPF</a></li>
                     @endif
                     @if (auth()->check())
-                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a> 
+                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a>
                         </li>
-                 
-                   <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout<i class="bi bi-box-arrow-right"></i></a>
-                    </li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout<i
+                                    class="bi bi-box-arrow-right"></i></a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     @endif
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -561,7 +563,7 @@
 
                                             <br>
 
-                                            
+
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
                                                 <input type="text" id="logradouro" name="logradouro"
@@ -668,7 +670,7 @@
 
                                             <br>
 
-                                            
+
 
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
@@ -679,7 +681,7 @@
                                                     value="" required>
                                             @endif
 
-                                            
+
                                             <br>
 
                                             <label for="numero_casa"> numero da casa </label>
@@ -838,7 +840,7 @@
 
                                             <br>
 
-                                            
+
 
                                             <label for="logradouro"> logradouro </label>
                                             @if (Auth::check() && Auth::user()->name !== null)
@@ -1171,8 +1173,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
-        let table = new DataTable('#tableMinhasCompras');
-        //let table = new DataTable('#tableMinhasCompras');
+        let table = new DataTable('#tableMinhasCompras', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json',
+            },
+        });
     </script>
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
