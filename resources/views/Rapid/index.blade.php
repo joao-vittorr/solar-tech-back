@@ -107,7 +107,7 @@
                 <div class="col-lg-6 intro-info order-lg-first order-last" data-aos="zoom-in" data-aos-delay="100">
                     <h2>Transformando o Sol <br>em Energia para o Seu <span>Lar!</span></h2>
                     <div>
-                        <a href="#pricing" class="btn-get-started scrollto" dusk="gs">Adquira Já</a>
+                        <a href="#pricing" class="btn-get-started scrollto" id='compraPlacas' dusk="gs">Adquira Já</a>
                     </div>
                 </div>
 
@@ -246,8 +246,7 @@
                                 </ul>
                                 @if (auth()->check() && auth()->user()->cep == null)
                                     <a data-bs-toggle="modal" data-bs-target="#cepModal" id="CompraBasico"
-                                        class="btn">Escolher
-                                        Plano</a>
+                                        class="btn">Escolher Plano</a>
                                 @else
                                     <a data-bs-toggle="modal" data-bs-target="#basicPlanModal" id="CompraBasico"
                                         class="btn" dusk='escolherPlanoBasico'>Escolher Plano</a>
@@ -1003,7 +1002,7 @@
                 </label>
                 <input type="number" id="quantidadeAdicionalPlaca" name="quantidadeAdicionalPlaca" required>
                 <br>
-                <button type="submit" dusk="enviarBudget">Enviar</button>
+                <button type="submit" id="enviarBudget" name="enviarDados">Enviar</button>
                 <br />
                 <span type="number" id="resultado" dusk="resultado" name="resultado" readonly></span>
             </form>
@@ -1012,7 +1011,7 @@
 
         <!-- ======= economy Section ======= -->
         <section id="economy" dusk="EconomySection">
-            <h1>Economia / Simulação</h1>
+            <h1 id="simulacao">Economia / Simulação</h1>
             <h2>Calcule aqui o melhor plano e a quantidade de placas adicionais para atender a sua demanda</h2>
 
             <form id="economy-form">
@@ -1032,7 +1031,7 @@
                 <input type="number" id="quantidadeAdicional" name="quantidadeAdicional" required>
 
                 <br>
-                <label for="consumoMedio">
+                <label for="consumoMedio" id="consumo">
                     Consumo Medio(kWh):
                     <br>
                     <span class="subtitulo">(Informe o consumo médio da sua residência.)</span>
@@ -1040,7 +1039,7 @@
                 <input type="number" id="consumoMedio" name="consumoMedio" required>
 
                 <br>
-                <button type="submit" dusk="enviarEconomy">Enviar</button>
+                <button type="submit" id="enviarEconomy">Simular</button>
                 <br>
                 <span id="economyOutput"></span>
             </form>
