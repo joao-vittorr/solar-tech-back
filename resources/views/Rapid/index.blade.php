@@ -52,7 +52,7 @@
 
                     @if (Auth::check() && Auth::user()->name !== null)
                         <li class="dropdown">
-                            <a href="#"><span>{{ Auth::user()->name }}</span> <i
+                            <a href="#"><span id="user_name">{{ Auth::user()->name }}</span> <i
                                     class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a onclick='$("#PerfilModal").modal("show")'>Atualizar Dados</a></li>
@@ -68,7 +68,7 @@
                                 class="btn">Atualizar CPF</a></li>
                     @endif
                     @if (auth()->check())
-                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" class="btn">Minhas Compras</a>
+                        <li><a data-bs-toggle="modal" data-bs-target="#comprasModal" id="minhas_compras" class="btn">Minhas Compras</a>
                         </li>
 
                         <li>
@@ -401,7 +401,7 @@
                                                                 <th><button class="btn btn-success"
                                                                         onclick="buscarFatura({{ $item['id'] }})">Gerar
                                                                         Fatura</button></th>
-                                                                <th><button class="btn btn-danger"
+                                                                <th><button id="deletar_compra" class="btn btn-danger"
                                                                         onclick="deletarCompra({{ $item['id'] }})">Deletar
                                                                         Compra</button></th>
                                                             </tr>
